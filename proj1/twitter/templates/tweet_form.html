@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Tweets
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center mt-4">TwitterX</h1>
+
+<h2>
+    {% if form.instance.pk %}Edit Tweet
+    {% else %}Make a Tweet
+    {% endif %}
+</h2>
+
+{% if messages %}
+    <ul class="list-unstyled">
+        {% for message in messages %}
+            <li class="alert alert-info{% if message.tags %} {{ message.tags }}{% endif %}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data" class="form"> 
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-warning" type="submit">Submit</button>
+</form>
+
+<a href="{% url 'tweet_list' %}">Back to Tweet list</a>
+
+{% endblock content %}
