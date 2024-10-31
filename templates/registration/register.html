@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh; padding: 0 15px;">
+    <div class="card shadow-lg p-4 bg-dark text-light" style="width: 100%; max-width: 500px;">
+        <h2 class="text-center mb-4">Register Here</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-vibrant w-100 mt-3">Register</button>
+        </form>
+        <p class="text-center mt-3 mb-0">Already have an account? 
+            <a href="{% url 'login' %}" class="text-decoration-none text-primary fw-bold hover-underline">Login here</a>
+        </p>
+    </div>
+</div>
+
+<style>
+    /* Add styles for hover effect */
+    .hover-underline {
+        position: relative;
+        color: #0d6efd; /* Primary color */
+        transition: color 0.2s ease;
+    }
+
+    .hover-underline::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: #0d6efd; /* Primary color */
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+    }
+
+    .hover-underline:hover {
+        color: #0056b3; /* Darker shade on hover */
+    }
+
+    .hover-underline:hover::after {
+        transform: scaleX(1);
+    }
+</style>
+{% endblock %}

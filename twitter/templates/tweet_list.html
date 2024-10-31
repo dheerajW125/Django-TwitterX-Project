@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block title %}
+    Tweets
+{% endblock %}
+
+{% block content %}
+<style>
+    .welcome-header {
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+        background: linear-gradient(90deg, #ff6ec4, #7873f5);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        opacity: 0.9;
+        margin-top: 2rem;
+    }
+
+    .vibrant-button {
+        background: linear-gradient(90deg, #ff6ec4, #7873f5);
+        border: none;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .vibrant-button:hover {
+        background: linear-gradient(90deg, #7873f5, #ff6ec4);
+        color: #fff;
+    }
+</style>
+
+<h1 class="welcome-header">Welcome to Django TwitterX</h1>
+
+<div class="text-center mb-5">
+    <a class="btn vibrant-button" href="{% url 'create_tweet' %}">Make a Tweet</a>
+</div>
+
+<div class="container row gap-3">
+    {% for tweet in tweets %}
+        <div class="card" style="width: 18rem;">
+            <img src="{{ tweet.photo.url }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ tweet.user.username }}</h5>
+                <p class="card-text">{{ tweet.text }}</p>
+                {% if tweet.user == user %}
+                    <a href="{% url 'edit_tweet' tweet.id %}" class="btn vibrant-button">Edit</a>
+                    <a href="{% url 'delete_tweet' tweet.id %}" class="btn vibrant-button">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

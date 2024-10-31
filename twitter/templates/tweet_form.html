@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Tweets
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">TwitterX</h1>
+
+    <h2 class="text-center">
+        {% if form.instance.pk %} Edit Tweet {% else %} Make a Tweet {% endif %}
+    </h2>
+
+    {% if messages %}
+        <div class="alert alert-info">
+            <ul class="list-unstyled mb-0">
+                {% for message in messages %}
+                    <li class="{% if message.tags %} {{ message.tags }}{% endif %}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" class="shadow-lg p-5 mb-4 bg-dark text-light rounded position-relative border border-primary" style="max-width: 600px; margin: 0 auto;">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.as_p }}
+        </div>
+        <button class="btn btn-warning w-100" type="submit">Submit</button>
+    </form>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'tweet_list' %}" class="btn btn-secondary">Back to Tweet List</a>
+    </div>
+</div>
+
+<style>
+    /* Additional styles for a polished look */
+    h1 {
+        color: #ff6ec4; /* Use a vibrant color for the title */
+    }
+
+    .alert {
+        transition: all 0.3s ease;
+    }
+
+    .alert:hover {
+        transform: scale(1.02);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .form {
+        max-width: 500px; /* Limit form width for better focus */
+        margin: 0 auto; /* Center form */
+    }
+</style>
+
+{% endblock content %}
